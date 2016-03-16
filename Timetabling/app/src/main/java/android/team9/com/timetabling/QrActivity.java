@@ -7,20 +7,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class QrActivity extends AppCompatActivity {
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
 
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.qr_scanner);
     }
 
 

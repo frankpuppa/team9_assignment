@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">QR Code Scanner</string>
-    <string name="simple_activity_sample">Frank Test</string>
+    <string name="simple_activity_sample">Qr Scanner</string>
     <string name="simple_scanner_activity">ZXing Scanner</string>
     <string name="toggle_flash">Flash</string>
     <string name="flash_on">Flash [ON]</string>
@@ -12,4 +11,12 @@
     <string name="select_camera">Select a Camera</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">Cancel</string>
+    <string name="app_name">Timetabling</string>
+    <!--Refactoring hardcoded login ui text into string resources -->
+    <string name="login_button_txt">Login</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+
+    <string name="attendance_button">View module attendance</string>
+    <string name="student_list_Button">View enrolled students</string>
 </resources>

@@ -13,17 +13,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Class',
             fields=[
-                ('classid', models.IntegerField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('qrCode', models.IntegerField()),
-                ('occurance', models.DateTimeField()),
-                ('room', models.CharField(max_length=10)),
+                ('start_time', models.DateTimeField()),
+                ('room_id', models.CharField(max_length=10)),
+                ('end_time', models.DateTimeField()),
                 ('building', models.CharField(max_length=20)),
             ],
         ),
         migrations.CreateModel(
             name='Module',
             fields=[
-                ('moduleid', models.IntegerField(primary_key=True, serialize=False)),
+                ('moduleid', models.IntegerField(serialize=False, primary_key=True)),
                 ('module_code', models.CharField(max_length=20)),
                 ('module_title', models.CharField(max_length=50)),
             ],
@@ -31,21 +32,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Staff',
             fields=[
-                ('staffid', models.IntegerField(primary_key=True, serialize=False)),
+                ('staffid', models.IntegerField(serialize=False, primary_key=True)),
                 ('email', models.CharField(max_length=60)),
                 ('first_name', models.CharField(max_length=30)),
                 ('last_name', models.CharField(max_length=30)),
                 ('password', models.CharField(max_length=30)),
+                ('hash', models.CharField(null=True, max_length=128)),
             ],
         ),
         migrations.CreateModel(
             name='Student',
             fields=[
                 ('email', models.CharField(max_length=60)),
-                ('matric_number', models.IntegerField(primary_key=True, serialize=False)),
+                ('matric_number', models.IntegerField(serialize=False, primary_key=True)),
                 ('first_name', models.CharField(max_length=30)),
                 ('last_name', models.CharField(max_length=30)),
                 ('password', models.CharField(max_length=30)),
+                ('hash', models.CharField(null=True, max_length=128)),
             ],
         ),
         migrations.AddField(
