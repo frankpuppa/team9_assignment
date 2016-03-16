@@ -18,7 +18,7 @@ public  class ResponseErrorFrank implements Response.ErrorListener{
     private boolean error_bool;
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(this.context, "Could not log you in", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.context, "Oops! Something went wrong!", Toast.LENGTH_SHORT).show();
         System.out.println("Something went wrong!");
         error.printStackTrace();
     }

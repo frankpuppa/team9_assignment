@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Django default" uuid="7b7daf62-702d-41e7-9db2-5fe6293017b0">
+      <user-name>root</user-name>
+      <user-password>dfcddfffdfc1df98dfd3dfdfdffddff9dfc7dfe8dfccdfc1df9ddff9dffddffe</user-password>
+      <schema-pattern>Timetabling.*</schema-pattern>
+      <default-schemas>Timetabling.*</default-schemas>
+    </data-source>
+  </component>
+</project>

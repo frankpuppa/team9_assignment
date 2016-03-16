@@ -17,6 +17,29 @@
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
 
-    <string name="attendance_button">View module attendance</string>
+    <string name="attendance_button">View class attendance</string>
+    <string name="attendanceTable_button">View module attendance</string>
     <string name="student_list_Button">View enrolled students</string>
+    <string name="enrolled_title">Students enrolled in the module</string>
+
+    <string-array name="week_array">
+        <item>Week 1</item>
+        <item>Week 2</item>
+        <item>Week 3</item>
+        <item>Week 4</item>
+        <item>Week 5</item>
+        <item>Week 6</item>
+        <item>Week 7</item>
+        <item>Week 8</item>
+        <item>Week 9</item>
+        <item>Week 10</item>
+        <item>Week 11</item>
+        <item>Week 12</item>
+    </string-array>
+
+    <string name="matricNumber">Matric. Nr. ✦</string>
+    <string name="forename">Forename ✦</string>
+    <string name="surname">Surname ✦</string>
+    <string name="attendance">Attendance ✦</string>
+
 </resources>

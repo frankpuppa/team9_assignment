@@ -29,25 +29,19 @@ public class StaffLandingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_ui);
-
         listView = (ListView) findViewById(R.id.listView);
-
-
         Bundle extra = getIntent().getExtras();
         user_id = extra.getInt(LoginActivity.EXTRA_USERID);
 
         sendRequest();
-        //Click an item in the list and pass its value to 'EnrolledStudents' activity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+                // changed how variables are accessed instead of taking them from a list that is already displayed
+                // variables are taken directly from arrays in class, making it cleaner and modular
                 String moduleTitle=cl.getModuleTitle(position);
                 String moduleId=cl.getModuleId(position);
                 String moduleCode=cl.getModuleCode(position);
-                Log.i("moduleTitle ", moduleTitle);
-                Log.i("moduleId ", moduleId);
-                Log.i("moduleCode ", moduleCode);
-
                 Bundle b = new Bundle();
                 b.putString("moduleTitle", moduleTitle);
                 b.putString("moduleId", moduleId);
@@ -55,13 +49,11 @@ public class StaffLandingActivity extends AppCompatActivity {
                 Intent pass = new Intent(StaffLandingActivity.this, StaffFirstSelectionActivity.class);
                 pass.putExtras(b);
                 startActivity(pass);
-
             }
         });
     }
 
     public void sendRequest(){
-
         StringRequest stringRequest = new StringRequest(JSON_URL + user_id,
                 new Response.Listener<String>() {
                     @Override
@@ -79,7 +71,6 @@ public class StaffLandingActivity extends AppCompatActivity {
                         Toast.makeText(StaffLandingActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });
-
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
@@ -87,9 +78,8 @@ public class StaffLandingActivity extends AppCompatActivity {
     public void showJSON(String json) throws JSONException {
         ParseJSON pj = new ParseJSON(json);
         pj.parseJSONModuleList();
-         cl = new CustomModuleList(this, ParseJSON.moduleCode, ParseJSON.moduleTitle, ParseJSON.moduleId);
+        // made class object global, to be accessible outside of the class for easier way to access module information
+        cl = new CustomModuleList(this, ParseJSON.moduleCode, ParseJSON.moduleTitle, ParseJSON.moduleId);
         listView.setAdapter(cl);
-
     }
-
 }

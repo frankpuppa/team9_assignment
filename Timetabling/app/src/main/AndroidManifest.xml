@@ -14,30 +14,68 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-
         android:theme="@style/AppTheme">
-        <activity android:name=".StaffLandingActivity">
-
-        </activity>
-        <activity android:name=".LoginActivity" >
+        <activity
+            android:name=".StaffLandingActivity"
+            android:label="Modules I teach" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-          <activity android:name="SimpleScannerActivity"
-            android:theme="@style/AppOverlayTheme"
-            android:label="@string/simple_scanner_activity">
-        </activity>
+        <activity
+            android:name=".SimpleScannerActivity"
+            android:label="@string/simple_scanner_activity"
+            android:theme="@style/AppOverlayTheme" />
 
         <activity
             android:name=".StaffFirstSelectionActivity"
-            android:parentActivityName=".StaffLandingActivity" >
+            android:parentActivityName=".StaffLandingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".StaffLandingActivity" />
         </activity>
-    </application>
 
+        <activity
+            android:name=".QrActivity"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
+        </activity>
+
+        <activity
+            android:name=".EnrolledStudents"
+            android:label="Students enrolled in a module"
+            android:parentActivityName=".StaffFirstSelectionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.team9.com.timetabling.StaffFirstSelectionActivity" />
+        </activity>
+
+        <activity android:name=".ClassListActivity" />
+
+        <activity
+            android:name=".AttendanceActivity"
+            android:parentActivityName=".StaffFirstSelectionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.team9.com.timetabling.StaffFirstSelectionActivity" />
+        </activity>
+
+        <activity
+            android:name=".StaffModuleAttendanceActivity"
+            android:parentActivityName=".StaffFirstSelectionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.team9.com.timetabling.StaffFirstSelectionActivity" />
+        </activity>
+
+        <activity
+            android:name=".ModuleAttendanceGraphActivity" />
+
+    </application>
 
 </manifest>
