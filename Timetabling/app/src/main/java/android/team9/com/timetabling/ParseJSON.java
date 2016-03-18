@@ -15,6 +15,25 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class ParseJSON {
+    public static String[] classAttended;
+
+    public static int seminarCount;
+    public static int labCount;
+    public static int tutorialCount;
+
+    public static int seminarAttended;
+    public static int labAttended;
+    public static int tutorialAttended;
+
+
+    public static String[] attendancePercentage;
+
+    public static final String KEY_STUDENT_CLASS_TYPE = "class_type";
+    public static final String KEY_STUDENT_ATTENDED = "attended";
+
+
+
+
     public static String[] moduleCode;
     public static String[] moduleTitle;
     public static String[] moduleId;
@@ -282,10 +301,52 @@ public class ParseJSON {
     }
 
 
+    protected void parseStudentAttendance() throws JSONException {
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            classType = new String[jsonArray.length()];
+            classAttended = new String[jsonArray.length()];
+
+            seminarCount = 0;
+            seminarAttended = 0;
+            labCount = 0;
+            labAttended = 0;
+            tutorialCount = 0;
+            tutorialAttended = 0;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonobject = jsonArray.getJSONObject(i);
+
+                classType[i] = jsonobject.getString(KEY_STUDENT_CLASS_TYPE);
+                classAttended[i] = jsonobject.getString(KEY_STUDENT_ATTENDED);
+
+                if (classType[i].equals("Seminar")){
+                    seminarCount++;
+                    if (classAttended[i].equals("yes"))
+                        seminarAttended++;
+                }
+                else if (classType[i].equals("Lab")){
+                    labCount++;
+                    if (classAttended[i].equals("yes"))
+                        labAttended++;
+                }
+                else if (classType[i].equals("Tutorial")){
+                    tutorialCount++;
+                    if (classAttended[i].equals("yes"))
+                        tutorialAttended++;
+                }
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     protected List<List<String>> parseJSONStudentAttendance() throws JSONException {
         try {
-            List<List<String>> attendanceData = new ArrayList<>();
+            attendanceData = new ArrayList<>();
             JSONArray jsonArray = new JSONArray(json);
             Log.v("JSON", jsonArray.toString());
 

@@ -173,7 +173,7 @@ public class StaffModuleAttendanceActivity extends AppCompatActivity {
                                 startActivity(pass);
                             } else if (selection[0].contains("Graph")) {
                                 // Dominic call your activity from here
-                                Intent pass = new Intent(StaffModuleAttendanceActivity.this, StaffModuleStudentAttendanceActivity.class);
+                                Intent pass = new Intent(StaffModuleAttendanceActivity.this, StudentAttendanceGraph.class);
                                 pass.putExtras(b);
                                 startActivity(pass);
                             }

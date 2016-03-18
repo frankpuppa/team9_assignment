@@ -75,7 +75,8 @@
                 android:value="android.team9.com.timetabling.StaffModuleAttendanceActivity" />
         </activity>
         <activity android:name=".ModuleAttendanceGraphActivity" />
-        <activity android:name=".SemesterAttendanceGraphActivity"></activity>
+        <activity android:name=".SemesterAttendanceGraphActivity" />
+        <activity android:name=".StudentAttendanceGraph"></activity>
     </application>
 
 </manifest>
