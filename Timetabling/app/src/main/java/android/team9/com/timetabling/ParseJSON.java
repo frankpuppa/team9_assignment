@@ -285,17 +285,9 @@ public class ParseJSON {
 
     protected List<List<String>> parseJSONStudentAttendance() throws JSONException {
         try {
-            attendanceData = new ArrayList<>();
+            List<List<String>> attendanceData = new ArrayList<>();
             JSONArray jsonArray = new JSONArray(json);
             Log.v("JSON", jsonArray.toString());
-
-            class_type = new String[jsonArray.length()];
-            date = new String[jsonArray.length()];
-            week = new String[jsonArray.length()];
-            startTime = new String[jsonArray.length()];
-            weekday = new String[jsonArray.length()];
-            weekdays = new String[jsonArray.length()];
-            attended = new String[jsonArray.length()];
 
             Map<String, Integer> weekdaysMap = new TreeMap<String, Integer>() {
             };
@@ -308,26 +300,25 @@ public class ParseJSON {
             weekdaysMap.put("Sunday", 6);
 
             for (int i = 0; i < jsonArray.length(); i++) {
+                ArrayList<String> temp = new ArrayList<>();
                 JSONObject jsonobject = jsonArray.getJSONObject(i);
-                class_type[i] = jsonobject.getString(KEY_CLASS_TYPE);
-                date[i] = jsonobject.getString(KEY_DATE);
-                week[i] = jsonobject.getString(KEY_WEEK);
-                startTime[i] = jsonobject.getString(KEY_START_TIME);
-                weekday[i] = jsonobject.getString(KEY_WEEKDAY);
-                for (Map.Entry<String, Integer> entry : weekdaysMap.entrySet()) {
-                    if (entry.getValue() == Integer.parseInt(weekday[i]))
-                        weekdays[i] = entry.getKey();
-                }
-                attended[i] = jsonobject.getString(KEY_ATTENDED);
-            }
 
-            attendanceData.add(Arrays.asList(date));
-            attendanceData.add(Arrays.asList(week));
-            attendanceData.add(Arrays.asList(weekdays));
-            attendanceData.add(Arrays.asList(startTime));
-            attendanceData.add(Arrays.asList(class_type));
-            attendanceData.add(Arrays.asList(attended));
-            attendanceData.add(Arrays.asList(weekday));
+                temp.add(jsonobject.getString(KEY_DATE));
+                temp.add(jsonobject.getString(KEY_WEEK));
+
+                String weekday = jsonobject.getString(KEY_WEEKDAY);
+                for (Map.Entry<String, Integer> entry : weekdaysMap.entrySet()) {
+                    if (entry.getValue() == Integer.parseInt(weekday))
+                        temp.add(entry.getKey());
+                }
+
+                temp.add(jsonobject.getString(KEY_START_TIME));
+                temp.add(jsonobject.getString(KEY_CLASS_TYPE));
+                temp.add(jsonobject.getString(KEY_ATTENDED));
+                temp.add(jsonobject.getString(KEY_WEEKDAY));
+
+                attendanceData.add(temp);
+            }
 
             return attendanceData;
         } catch (JSONException e) {
