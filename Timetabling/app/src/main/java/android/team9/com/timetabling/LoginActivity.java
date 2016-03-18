@@ -3,8 +3,8 @@ package android.team9.com.timetabling;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 
 import org.json.JSONException;
 
@@ -91,11 +90,11 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
                         editor.clear();
-                        editor.putInt("id", prsJson.user_id);
-                        editor.putString("role", prsJson.role);
+                        editor.putInt("id", ParseJSON.user_id);
+                        editor.putString("role", ParseJSON.role);
                         editor.commit();
-                        Toast.makeText(LoginActivity.this, prsJson.role + " " +prsJson.user_id, Toast.LENGTH_LONG).show();
-                        routeToActivity(prsJson.role,prsJson.user_id);
+                        //Toast.makeText(LoginActivity.this, prsJson.role + " " +prsJson.user_id, Toast.LENGTH_LONG).show();
+                        routeToActivity(ParseJSON.role, ParseJSON.user_id);
                     }
                 },
                 new Response.ErrorListener() {

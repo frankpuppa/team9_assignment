@@ -3,36 +3,33 @@ package android.team9.com.timetabling;
 /**
  * Created by frank on 18/02/16.
  */
+
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
-
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.zxing.Result;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import me.dm7.barcodescanner.core.IViewFinder;
 import me.dm7.barcodescanner.core.ViewFinderView;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-import java.util.HashMap;
-import java.util.Map;
 
-
-public class    SimpleScannerActivity extends BaseScannerActivity implements ZXingScannerView.ResultHandler {
+public class SimpleScannerActivity extends BaseScannerActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
     private String userid;
     private String roomid;

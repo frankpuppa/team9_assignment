@@ -68,4 +68,14 @@
         android:layout_alignStart="@+id/attendanceButton"
         android:layout_alignEnd="@+id/attendanceButton" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/semesterGraphBtn"
+        android:onClick="view_module_attendance"
+        android:layout_below="@+id/moduleGraphBtn"
+        android:layout_alignStart="@+id/attendanceButton"
+        android:layout_alignEnd="@+id/attendanceButton"
+        android:text="Semester Graph" />
+
 </RelativeLayout>

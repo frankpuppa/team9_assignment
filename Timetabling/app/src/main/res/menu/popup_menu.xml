@@ -1,40 +1,40 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/one"
-        android:title="Week 1"/>
+        android:title="Week 1" />
     <item
         android:id="@+id/two"
-        android:title="Week 2"/>
+        android:title="Week 2" />
     <item
         android:id="@+id/three"
-        android:title="Week 3"/>
+        android:title="Week 3" />
     <item
         android:id="@+id/four"
-        android:title="Week 4"/>
+        android:title="Week 4" />
     <item
         android:id="@+id/five"
-        android:title="Week 5"/>
+        android:title="Week 5" />
     <item
         android:id="@+id/six"
-        android:title="Week 6"/>
+        android:title="Week 6" />
     <item
         android:id="@+id/seven"
-        android:title="Week 7"/>
+        android:title="Week 7" />
     <item
         android:id="@+id/eight"
-        android:title="Week 8"/>
+        android:title="Week 8" />
     <item
         android:id="@+id/nine"
-        android:title="Week 9"/>
+        android:title="Week 9" />
     <item
         android:id="@+id/ten"
-        android:title="Week 10"/>
+        android:title="Week 10" />
     <item
         android:id="@+id/eleven"
-        android:title="Week 11"/>
+        android:title="Week 11" />
     <item
         android:id="@+id/twelve"
-        android:title="Week 12"/>
+        android:title="Week 12" />
 
 </menu>  

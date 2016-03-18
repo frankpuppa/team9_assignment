@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,14 +22,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class ModuleAttendanceGraphActivity extends AppCompatActivity {
+public class SemesterAttendanceGraphActivity extends AppCompatActivity {
 
-    private static final String MODULE_ATTENDANCE_URL = "http://api.ouanixi.com/moduleAttendanceList/";
+    private static final String MODULE_ATTENDANCE_URL = "http://api.ouanixi.com/semesterModuleAttendance/";
 
     public static final String KEY_MODULE_ID = "module_id";
     public static final String KEY_WEEK = "week";
@@ -40,14 +37,7 @@ public class ModuleAttendanceGraphActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_module_attendance_graph);
-
-        // extract week number from the string "week x"
-        String inputline = getIntent().getStringExtra("week");
-        Pattern p = Pattern.compile("-?\\d+");
-        Matcher m = p.matcher(inputline);
-        if (m.find())
-            week = m.group();
+        setContentView(R.layout.activity_semester_attendance_graph);
 
         moduleId = getIntent().getStringExtra("module");
         moduleTitle = getIntent().getStringExtra("moduleTitle");
@@ -57,14 +47,18 @@ public class ModuleAttendanceGraphActivity extends AppCompatActivity {
 
     }
 
+    // REFACTORED
     private void createChart() {
 
         BarChart barChart = (BarChart) findViewById(R.id.chart);
+        float percentage;
 
         // populate attendance count
         ArrayList<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < ParseJSON.attendanceCount.length; i++) {
-            entries.add(new BarEntry(ParseJSON.attendanceCount[i], i));
+        for (int i = 0; i < ParseJSON.attendanceCountInt.length; i++) {
+            percentage = ((float) ParseJSON.attendanceCountInt[i] / (float) (31 * ParseJSON.classCount[i])) * 100;
+            Log.v("%", String.valueOf(percentage));
+            entries.add(new BarEntry(percentage, i));
         }
 
         BarDataSet dataset = new BarDataSet(entries, "# of students (" + noOfStudents + " enrolled)");
@@ -79,21 +73,20 @@ public class ModuleAttendanceGraphActivity extends AppCompatActivity {
         barChart.setDrawBarShadow(true);
         barChart.setData(data); // set the data and list of lables into chart
 
-        barChart.setDescription("Week " + week + " - " + moduleTitle);  // set the description
+        barChart.setDescription("Semester attendance % for " + moduleTitle);  // set the description
         dataset.setColors(ColorTemplate.COLORFUL_COLORS);
         barChart.animateY(2000);
     }
 
     private void getModuleAttendance() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, MODULE_ATTENDANCE_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, MODULE_ATTENDANCE_URL + moduleId,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        ParseJSON prsJson = new ParseJSON(response);
-                        Log.v("ATTENDANCE", response.toString());
+                        Log.v("ATTENDANCE FOR SEMESTER", response.toString());
                         try {
-                            showJSON(response);
+                            parseJson(response);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -104,26 +97,21 @@ public class ModuleAttendanceGraphActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         NetworkResponse networkResponse = error.networkResponse;
-                        Toast.makeText(ModuleAttendanceGraphActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(SemesterAttendanceGraphActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put(KEY_MODULE_ID, moduleId);
-                params.put(KEY_WEEK, week);
-                return params;
-            }
-
         };
-
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                30000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
-    private void showJSON(String json) throws JSONException {
+    private void parseJson(String json) throws JSONException {
         ParseJSON pj = new ParseJSON(json);
-        pj.parseModuleAttendanceByWeek();
+        pj.parseSemesterModuleAttendance();
         createChart();
     }
 }

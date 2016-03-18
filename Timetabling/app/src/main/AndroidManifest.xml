@@ -29,7 +29,6 @@
             android:name=".SimpleScannerActivity"
             android:label="@string/simple_scanner_activity"
             android:theme="@style/AppOverlayTheme" />
-
         <activity
             android:name=".StaffFirstSelectionActivity"
             android:parentActivityName=".StaffLandingActivity">
@@ -37,7 +36,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".StaffLandingActivity" />
         </activity>
-
         <activity
             android:name=".QrActivity"
             android:parentActivityName=".LoginActivity">
@@ -45,7 +43,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
         <activity
             android:name=".EnrolledStudents"
             android:label="Students enrolled in a module"
@@ -54,9 +51,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.team9.com.timetabling.StaffFirstSelectionActivity" />
         </activity>
-
         <activity android:name=".ClassListActivity" />
-
         <activity
             android:name=".AttendanceActivity"
             android:parentActivityName=".StaffFirstSelectionActivity">
@@ -64,7 +59,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.team9.com.timetabling.StaffFirstSelectionActivity" />
         </activity>
-
         <activity
             android:name=".StaffModuleAttendanceActivity"
             android:parentActivityName=".StaffFirstSelectionActivity">
@@ -72,10 +66,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.team9.com.timetabling.StaffFirstSelectionActivity" />
         </activity>
-
         <activity
-            android:name=".ModuleAttendanceGraphActivity" />
-
+            android:name=".StaffModuleStudentAttendanceActivity"
+            android:parentActivityName=".StaffModuleAttendanceActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.team9.com.timetabling.StaffModuleAttendanceActivity" />
+        </activity>
+        <activity android:name=".ModuleAttendanceGraphActivity" />
+        <activity android:name=".SemesterAttendanceGraphActivity"></activity>
     </application>
 
 </manifest>

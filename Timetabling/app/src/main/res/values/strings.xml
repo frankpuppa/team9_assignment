@@ -42,4 +42,11 @@
     <string name="surname">Surname ✦</string>
     <string name="attendance">Attendance ✦</string>
 
+    <string name="class_type">Class Type ✦</string>
+    <string name="date">Date ✦</string>
+    <string name="week">Week ✦</string>
+    <string name="weekday">Weekday ✦</string>
+    <string name="start_time">Time ✦</string>
+    <string name="attended">Attended ✦</string>
+
 </resources>

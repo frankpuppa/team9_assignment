@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3d455b"
+    android:id="@+id/horizontalScroll"
+    tools:context="android.team9.com.timetabling.StaffModuleStudentAttendanceActivity">
+
+
+    <ScrollView
+
+        android:id="@+id/scrollVieWMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+
+            android:id="@+id/RelativeLayoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:textColor="#FFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/studentName"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:enabled="false"
+                android:editable="false"
+                android:text="id" />
+
+            <TableLayout
+                android:layout_marginTop="30dp"
+                android:id="@+id/tableMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></TableLayout>
+        </RelativeLayout>
+    </ScrollView>
+</HorizontalScrollView>

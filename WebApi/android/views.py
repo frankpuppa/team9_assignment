@@ -1,3 +1,4 @@
+import json
 from django.utils import timezone
 from django.db.models.query import Q
 from android.serializers import *
@@ -21,15 +22,30 @@ def staff_module_list(request, pk):
         return Response(serializer.data)
 
 
+@api_view(['GET'])
+def module_attendance_by_semester(request, pk):
+    try:
+        all_classes = Class.objects.filter(module_id=pk).order_by('class_type')
+    except Module.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SemesterAttendanceSerializer(all_classes, many=True)
+        return Response(serializer.data)
+
+
 
 @api_view(['GET'])
 def student_attendance_to_module(request, pk, sid):
     data = []
+    student = Student.objects.get(matric_number=sid)
     module = Module.objects.get(moduleid=pk)
-    classes = Class.objects.filter(module=pk).all()
-    if sid not in module.students_enrolled.all():
+    classes = Class.objects.filter(module=module).all()
+    students = module.students_enrolled.all()
+
+    if student not in students:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    print(classes)
+
     for cls in classes:
         val = {}
         val['week'] = cls.week
@@ -37,7 +53,7 @@ def student_attendance_to_module(request, pk, sid):
         val['weekday'] = cls.start_time.weekday()
         val['date'] = str(cls.start_time.strftime("%d-%m-%Y"))
         val['start_time'] = str(cls.start_time.strftime("%H:%M"))
-        if sid in cls.class_register.all():
+        if student in cls.class_register.all():
             val['attended'] = 'yes'
         else:
             val['attended'] = 'no'
@@ -64,10 +80,10 @@ def module_attendance(request, pk):
             if student in cls.class_register.all():
                 count += 1
         if count != 0:
-            percentage = (count / number_of_classes) * 100
+            percentage = int(100 * count / number_of_classes)
         else:
             percentage = 0
-        stdnt['percentage'] = percentage
+        stdnt['percentage'] = repr(percentage) + '%'
         stdnt['first_name'] = student.first_name
         stdnt['last_name'] = student.last_name
         stdnt['matric_number'] = student.matric_number

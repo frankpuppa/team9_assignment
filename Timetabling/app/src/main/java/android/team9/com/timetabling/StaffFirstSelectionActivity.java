@@ -2,15 +2,12 @@ package android.team9.com.timetabling;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -28,10 +25,11 @@ public class StaffFirstSelectionActivity extends AppCompatActivity {
     private String moduleCode;
     private int noOfStudents;
     public final static String MODULEID = "android.team9.com.MODULEID";
-    private static final String NO_OF_STUDENTS_URL = "http://10.0.2.2:8000/module_enrollments/";
+    private static final String NO_OF_STUDENTS_URL = "http://api.ouanixi.com/module_enrollments/";
 
     private Button buttonAttendance;
-    private Button buttonGraph;
+    private Button buttonWeekGraph;
+    private Button buttonSemesterGraph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +45,11 @@ public class StaffFirstSelectionActivity extends AppCompatActivity {
         nameText.setText(moduleTitle);
 
         buttonAttendance = (Button) findViewById(R.id.attendanceButton);
-        buttonGraph = (Button) findViewById(R.id.moduleGraphBtn);
+        buttonWeekGraph = (Button) findViewById(R.id.moduleGraphBtn);
+        buttonSemesterGraph = (Button) findViewById(R.id.semesterGraphBtn);
 
         getStudentNumber();
-        
+
         buttonAttendance.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (v == buttonAttendance) {
@@ -59,10 +58,18 @@ public class StaffFirstSelectionActivity extends AppCompatActivity {
             }
         });
 
-        buttonGraph.setOnClickListener(new View.OnClickListener() {
+        buttonWeekGraph.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (v == buttonGraph) {
+                if (v == buttonWeekGraph) {
                     viewPopupMenu();
+                }
+            }
+        });
+
+        buttonSemesterGraph.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (v == buttonSemesterGraph) {
+                    viewSemesterGraph();
                 }
             }
         });
@@ -96,9 +103,18 @@ public class StaffFirstSelectionActivity extends AppCompatActivity {
         noOfStudents = pj.parseNoOfEnrolledStudents();
     }
 
+    private void viewSemesterGraph() {
+        Bundle b = makeBundle();
+        b.putString("moduleTitle", moduleTitle);
+        b.putString("noOfStudents", String.valueOf(noOfStudents));
+        Intent intent = new Intent(StaffFirstSelectionActivity.this, SemesterAttendanceGraphActivity.class);
+        intent.putExtras(b);
+        startActivity(intent);
+    }
+
     private void viewPopupMenu() {
 
-        PopupMenu popup = new PopupMenu(StaffFirstSelectionActivity.this, buttonGraph);
+        PopupMenu popup = new PopupMenu(StaffFirstSelectionActivity.this, buttonWeekGraph);
         //Inflating the Popup using xml file
         popup.getMenuInflater()
                 .inflate(R.menu.popup_menu, popup.getMenu());
@@ -114,6 +130,7 @@ public class StaffFirstSelectionActivity extends AppCompatActivity {
         popup.show(); //showing popup menu
     }
 
+    // REFACTORED
     private Bundle makeBundle() {
         Bundle b = new Bundle();
         b.putString("module", moduleId);
@@ -132,7 +149,7 @@ public class StaffFirstSelectionActivity extends AppCompatActivity {
     }
 
     //click on button 'VIEW ENROLLED STUDENTS'
-    public void view_enrolled_students(View view){
+    public void view_enrolled_students(View view) {
         Bundle b = makeBundle();
         Intent pass = new Intent(StaffFirstSelectionActivity.this, EnrolledStudents.class);
         pass.putExtras(b);
@@ -142,6 +159,7 @@ public class StaffFirstSelectionActivity extends AppCompatActivity {
     public void view_module_attendance(View view) {
         Bundle b = new Bundle();
         b.putString("moduleId", moduleId);
+        b.putString("moduleTitle", moduleTitle);
         Intent pass = new Intent(StaffFirstSelectionActivity.this, StaffModuleAttendanceActivity.class);
         pass.putExtras(b);
         startActivity(pass);
@@ -149,7 +167,7 @@ public class StaffFirstSelectionActivity extends AppCompatActivity {
 
     private void viewAttendance(){
 
-        Intent intent = new Intent(this, ClassListActivity.class);
+        Intent intent = new Intent(StaffFirstSelectionActivity.this, ClassListActivity.class);
         intent.putExtra(MODULEID,moduleId);
         startActivity(intent);
 

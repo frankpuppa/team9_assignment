@@ -40,7 +40,6 @@ class ClassRegisterSerializer(serializers.ModelSerializer):
 
 
 ## Jamie's class
->>>>>>> upstream/master
 class StaffModuleListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Module
@@ -73,3 +72,9 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
         fields = ('class_register', )
+
+
+class SemesterAttendanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Class
+        fields = ('class_type', 'class_register')
