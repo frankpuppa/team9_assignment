@@ -130,20 +130,19 @@ public class UnitTests {
         parseJSON = new ParseJSON(jsonStudentAttendance);
         parseJSON.parseJSONStudentAttendance();
 
-        assertEquals("04-02-2016", ParseJSON.date[0]);
-        assertEquals("18-01-2016", ParseJSON.date[1]);
-        assertEquals("5", ParseJSON.week[0]);
-        assertEquals("3", ParseJSON.week[1]);
-        assertEquals("3", ParseJSON.weekday[0]);
-        assertEquals("0", ParseJSON.weekday[1]);
-        assertEquals("10:00", ParseJSON.startTime[0]);
-        assertEquals("10:00", ParseJSON.startTime[1]);
-        assertEquals("Tutorial", ParseJSON.class_type[0]);
-        assertEquals("Seminar", ParseJSON.class_type[1]);
-        assertEquals("no", ParseJSON.attended[0]);
-        assertEquals("yes", ParseJSON.attended[1]);
+        assertEquals("04-02-2016", ParseJSON.attendanceData.get(0).get(0));
+        assertEquals("18-01-2016", ParseJSON.attendanceData.get(1).get(0));
+        assertEquals("5", ParseJSON.attendanceData.get(0).get(1));
+        assertEquals("3", ParseJSON.attendanceData.get(1).get(1));
+        assertEquals("3", ParseJSON.attendanceData.get(0).get(6));
+        assertEquals("0", ParseJSON.attendanceData.get(1).get(6));
+        assertEquals("10:00", ParseJSON.attendanceData.get(0).get(3));
+        assertEquals("10:00", ParseJSON.attendanceData.get(1).get(3));
+        assertEquals("Tutorial", ParseJSON.attendanceData.get(0).get(4));
+        assertEquals("Seminar", ParseJSON.attendanceData.get(1).get(4));
+        assertEquals("no", ParseJSON.attendanceData.get(0).get(5));
+        assertEquals("yes", ParseJSON.attendanceData.get(1).get(5));
     }
-
     @Test
     public void testParseJSONLoginStudent() throws JSONException {
 

@@ -1,4 +1,6 @@
 import json
+from collections import OrderedDict
+
 from django.utils import timezone
 from django.db.models.query import Q
 from android.serializers import *
@@ -22,16 +24,39 @@ def staff_module_list(request, pk):
         return Response(serializer.data)
 
 
+
+
+
+
 @api_view(['GET'])
 def module_attendance_by_semester(request, pk):
+    #expected_data = [OrderedDict([('class_type', ''), ('class_register', [202])]), OrderedDict([('class_type', ''), ('class_register', [])]), OrderedDict([('class_type', ''), ('class_register', [])]), OrderedDict([('class_type', ''), ('class_register', [])]), OrderedDict([('class_type', ''), ('class_register', [])])]
     try:
         all_classes = Class.objects.filter(module_id=pk).order_by('class_type')
     except Module.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serializer = SemesterAttendanceSerializer(all_classes, many=True)
-        return Response(serializer.data)
+    serializer = SemesterAttandanceSerializer(all_classes, many=True)
+    return Response(serializer.data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
