@@ -74,7 +74,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ('class_register', )
 
 
-class SemesterAttendanceSerializer(serializers.ModelSerializer):
+class SemesterAttandanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
         fields = ('class_type', 'class_register')
