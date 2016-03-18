@@ -1,0 +1,55 @@
+AC10010-Introduction to Java
+AC10011-Programming in Java 1
+AC10012-Programing in Java 2
+AC10013-Programming in Python
+AC10014-Programming in Perl
+AC20010-Introduction to Discrete Maths
+AC20011-Intoduction to Astrophysic
+AC20012-Introduction to Computer Science
+AC30010-Mastering C Programming
+AC30011-Theory of Computation
+AC30012-Maths for Comp Science
+AC30013-Chemistry
+AC30014-Law
+AC30015-European Laws
+AC10015-Introduction to Algorithms
+AC10016-Introduction to Antropology
+AC10017-Introduction to Music
+AC10018-Introduction to Electronics, Signals, and Measurement
+AC10019-Writing About Literature 
+AC10020-Foundations of Western Culture: Homer to Dante 	
+AC20013-Foundations of World Culture I: World Civilizations and Texts 
+AC20014-Foundations of Western Culture: The Making of the Modern World
+AC20015-Foundations of Western Culture II 	
+AC20016-Foundations of Western Culture II: Renaissance to Modernity
+AC20017-Foundations of World Culture II: World Literatures and Texts
+AC20018-Reading Fiction
+AC20019-Introduction to Fiction
+AC20020-Introduction to Drama
+AC30016-Inventions and Patents
+AC30017-Management in Engineering
+AC30018-Introduction to Lean Six Sigma Methods
+AC30019-Technology in Transportation
+AC30020-Prototyping Avionics
+AC30021-Engineering Design and Rapid Prototyping
+AC30022-Design and Rapid Prototyping
+AC30023-The Aerospace Industry
+AC30024-Space Systems Engineering
+AC20021-Computational Methods in Aerospace Engineering
+AC20022-The Engineer of 2020 
+AC10021-Physical Computing
+AC10022-Data Visualisation
+AC10023-Introduction to Anthropology
+AC10024-How Culture Works 	Undergraduate
+AC10025-Anthropological Theory 	Undergraduate
+AC10026-Seminar in Ethnography and Fieldwork
+AC10027-The Supernatural in Music, Literature and Culture
+AC10028-Black Matters: Introduction to Black Studies
+AC10029-Japanese Literature and Cinema
+AC10030-Teaching and Learning: Cross-Cultural Perspectives
+AC20023-Magic, Witchcraft, and the Spirit World
+AC20024-Myth, Ritual, and Symbolism
+AC20025-Disease and Health: Culture, Society, and Ethics
+AC20026-Anthropology of War and Peace
+AC20027-Identity and Difference
+AC20028-Law and Society 
