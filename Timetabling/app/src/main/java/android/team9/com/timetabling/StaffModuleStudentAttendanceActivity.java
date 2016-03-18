@@ -20,7 +20,13 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -32,10 +38,12 @@ public class StaffModuleStudentAttendanceActivity extends AppCompatActivity {
     private String JSON_URL = "http://api.ouanixi.com/studentAttendance/";
     private TableLayout tableLayout;
     private TableRow headingRow;
+    private ArrayList<TableRow> bodyRows;
     private TreeMap<String, Integer> sortReminder;
     private ArrayList<TextView> headers, rows;
     private ArrayList<String> defaultHeaders;
     List<List<String>> attendanceData;
+    private String[] columnNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +73,15 @@ public class StaffModuleStudentAttendanceActivity extends AppCompatActivity {
         headingRow = new TableRow(this);
         headers = new ArrayList<>();
         defaultHeaders = new ArrayList<>();
+        bodyRows = new ArrayList<>();
+        columnNames = new String[6];
+        columnNames[0] = getString(R.string.date);
+        columnNames[1] = getString(R.string.week);
+        columnNames[2] = getString(R.string.weekday);
+        columnNames[3] = getString(R.string.start_time);
+        columnNames[4] = getString(R.string.class_type);
+        columnNames[5] = getString(R.string.attended);
+
         for (int i = 0; i < 6; i++) {
             headers.add(new TextView(this));
             headers.get(i).setPadding(25, 0, 25, 25);
@@ -97,9 +114,100 @@ public class StaffModuleStudentAttendanceActivity extends AppCompatActivity {
         tableLayout.addView(headingRow);
     }
 
+    private int compareInt(int a, int b) {
+        int compared = 0;
+        if(a > b)
+            compared = 1;
+        else if(a < b)
+            compared = -1;
+
+        return compared;
+    }
+
     // refactored code into separate methods to make it more portable/accommodate sorting
     private void populateTable() {
-        for (int i = 0; i < attendanceData.get(0).size(); i++) {
+        for (TableRow row : bodyRows) {
+            row.removeAllViews();
+        }
+        //Determine which column should be sorted and in what order
+        int column = 0, tempOrder = 0;
+        for (Map.Entry<String, Integer> entry : sortReminder.entrySet()) {
+            int value = entry.getValue();
+
+            for (int i = 0; i < columnNames.length; i++) {
+                if (columnNames[i].equals(entry.getKey())) {
+                    column = i;
+                    break;
+                }
+            }
+            if (value != 0) {
+                tempOrder = value;
+                break;
+            }
+        }
+        if (tempOrder != 0) {
+            //Order data appropriately
+            if(column == 2) {
+                column = 6;
+            }
+            final int orderBy = column;
+            final int order = tempOrder;
+            Collections.sort(attendanceData, new Comparator<List<String>>() {
+                @Override
+                public int compare(List<String> list1, List<String> list2) {
+                    if(orderBy == 0) {
+                        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                        Date date1, date2;
+                        try {
+                            date1 = dateFormat.parse(list1.get(orderBy));
+                            date2 = dateFormat.parse(list2.get(orderBy));
+
+                            if(order == 1) {
+                                return date1.compareTo(date2);
+                            }
+
+                            return date2.compareTo(date1);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if(orderBy == 1) {
+                        int week1, week2;
+                        week1 = Integer.parseInt(list1.get(orderBy));
+                        week2 = Integer.parseInt(list2.get(orderBy));
+
+                        int compared = compareInt(week1, week2);
+                        if(order == 1) {
+                            compared = -compared;
+                        }
+
+                        return compared;
+                    }
+
+                    if(orderBy == 3) {
+                        int time1, time2;
+                        time1 = Integer.parseInt(list1.get(orderBy).replace(":", ""));
+                        time2 = Integer.parseInt(list2.get(orderBy).replace(":", ""));
+
+                        int compared = compareInt(time1, time2);
+                        if(order == 1) {
+                            compared = -compared;
+                        }
+
+                        return compared;
+                    }
+
+                    if (order == 1) {
+                        return list1.get(orderBy).compareTo(list2.get(orderBy));
+                    }
+
+                    return list2.get(orderBy).compareTo(list1.get(orderBy));
+                }
+            });
+        }
+
+        for (int i = 0; i < attendanceData.size(); i++) {
             TableRow tableRowInside = new TableRow(this);
             rows = new ArrayList<>();
             for (int j = 0; j < 6; j++) {
@@ -107,10 +215,11 @@ public class StaffModuleStudentAttendanceActivity extends AppCompatActivity {
                 rows.get(j).setTextColor(Color.WHITE);
                 rows.get(j).setGravity(Gravity.CENTER);
                 rows.get(j).setPadding(25, 0, 25, 0);
-                rows.get(j).setText(attendanceData.get(j).get(i));
+                rows.get(j).setText(attendanceData.get(i).get(j));
                 tableRowInside.addView(rows.get(j));
             }
             tableLayout.addView(tableRowInside);
+            bodyRows.add(tableRowInside);
         }
     }
 
@@ -171,6 +280,7 @@ public class StaffModuleStudentAttendanceActivity extends AppCompatActivity {
             if (header != i)
                 headers.get(i).setText(defaultHeaders.get(i));
         }
+        populateTable();
         return column;
     }
 }
